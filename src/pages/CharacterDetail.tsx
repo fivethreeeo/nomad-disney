@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { fetchCharacterDetail } from '../apis/apis'
 
 export default function CharacterDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const { isLoading, isError, data } = useQuery(['characterDetail', id], () =>
     fetchCharacterDetail(Number(id))
   )
@@ -19,8 +20,13 @@ export default function CharacterDetail() {
 
   const { name, films, imageUrl } = data
 
+  const goBack = () => {
+    navigate('/')
+  }
+
   return (
     <Container>
+      <button onClick={goBack}>리스트로 돌아가기</button>
       <Thumbnail src={imageUrl} />
       <h2>{name}'s Films'</h2>
       <FilmList>
@@ -40,9 +46,13 @@ const Container = styled.div`
   h1 {
     margin-bottom: 40px;
   }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const Thumbnail = styled.img`
+  margin-top: 40px;
   margin-bottom: 24px;
   width: 240px;
   height: 240px;
