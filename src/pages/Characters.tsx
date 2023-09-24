@@ -10,20 +10,22 @@ export default function Characters() {
 
   const goDetail = (id: number) => () => navigate(`character/${id}`)
 
+  if (isLoading) {
+    return <span>Loading...</span>
+  }
+
+  if (isError) {
+    return <span>Error...</span>
+  }
+
   return (
     <Container>
       <h1>Disney Characters</h1>
-      {isLoading ? (
-        <span>Loading...</span>
-      ) : isError ? (
-        <span>Error...</span>
-      ) : (
-        <CardList>
-          {data.slice(0, 100).map(card => (
-            <Card key={card.id} handleClick={goDetail(card.id)} {...card} />
-          ))}
-        </CardList>
-      )}
+      <CardList>
+        {data.slice(0, 100).map(card => (
+          <Card key={card.id} handleClick={goDetail(card.id)} {...card} />
+        ))}
+      </CardList>
     </Container>
   )
 }

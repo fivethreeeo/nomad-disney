@@ -23,17 +23,19 @@ export default function CharacterDetail() {
     <Container>
       <Thumbnail src={imageUrl} />
       <h2>{name}'s Films'</h2>
-      <ul>
+      <FilmList>
         {films.map((film, index) => (
-          <li key={index}>{film}</li>
+          <Tag key={index}>{film}</Tag>
         ))}
-      </ul>
+      </FilmList>
     </Container>
   )
 }
 
 const Container = styled.div`
-  padding: 24px;
+  margin: 64px auto;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
   h1 {
     margin-bottom: 40px;
@@ -41,8 +43,28 @@ const Container = styled.div`
 `
 
 const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
+  margin-bottom: 24px;
+  width: 240px;
+  height: 240px;
   border-radius: 100%;
   object-fit: cover;
+  &:hover {
+    border-radius: 0;
+    object-fit: contain;
+  }
+`
+
+const FilmList = styled.ul`
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 8px;
+`
+
+const Tag = styled.li`
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #1d1d1d;
+  border-radius: 8px;
 `
